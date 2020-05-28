@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import { Global } from '@emotion/core';
+import { ToastContainer } from 'react-toastify';
 
 import AppPresenter from './AppPresenter';
 import { IS_LOGGED_IN } from './AppQueries';
@@ -12,6 +13,7 @@ const AppContainer = ({ data }: { data?: any }) => {
     <>
       <Global styles={[theme]} />
       <AppPresenter isLoggedIn={data.auth.isLoggedIn} />
+      <ToastContainer />
     </>
   );
 };

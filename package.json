@@ -19,6 +19,7 @@
     "react-helmet": "^6.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-toastify": "^6.0.5",
     "typescript": "^3.7.5"
   },
   "scripts": {
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@types/react-helmet": "^6.0.0",
-    "@types/react-router-dom": "^5.1.5"
+    "@types/react-router-dom": "^5.1.5",
+    "@types/react-toastify": "^4.1.0"
   }
 }

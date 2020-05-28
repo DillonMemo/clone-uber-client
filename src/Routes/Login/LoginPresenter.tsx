@@ -4,7 +4,7 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import bgImage from '../../images/bg.png';
-import { color } from '../../../theme';
+import { color } from '../../theme';
 
 interface OutHomePresenterProps extends RouteComponentProps {}
 const OutHomePresenter: React.FC<OutHomePresenterProps> = () => {
@@ -63,7 +63,9 @@ const logo = css`
   font-size: 25px;
 `;
 
-const title = css``;
+const title = css`
+  font-size: 2rem;
+`;
 
 const footer = css``;
 
