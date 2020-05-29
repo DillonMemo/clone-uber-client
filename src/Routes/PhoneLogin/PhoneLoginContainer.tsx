@@ -1,16 +1,27 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import PhoneLoginPresenter from './PhoneLoginPresenter';
 import { RouteComponentProps } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+
+import { useMutation } from '@apollo/react-hooks';
+import { PHONE_SIGN_IN } from './PhoneQueries';
+
+interface IMutationInterface {
+  phoneNumber: string;
+}
 
 interface IProps extends RouteComponentProps {}
 
 const PhoneLoginContainer: React.FC<IProps> = () => {
   const [countryCode, setCountryCode] = useState<string>('+82');
   const [phoneNumber, setPhoneNumber] = useState<string>('12345678');
+
+  const [TestMutation, { data, loading, called }] = useMutation<any, IMutationInterface>(
+    PHONE_SIGN_IN,
+  );
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const {
@@ -28,6 +39,8 @@ const PhoneLoginContainer: React.FC<IProps> = () => {
     console.log(isValid);
 
     if (isValid) {
+      TestMutation({ variables: { phoneNumber: `${countryCode}${phoneNumber}` } });
+      console.log('mutation data :', isValid, `${countryCode}${phoneNumber}`, data, called);
       return;
     } else {
       toast.error('Please write a valid phone number');
@@ -35,12 +48,15 @@ const PhoneLoginContainer: React.FC<IProps> = () => {
   };
 
   return (
-    <PhoneLoginPresenter
-      countryCode={countryCode}
-      phoneNumber={phoneNumber}
-      onInputChange={onInputChange}
-      onSubmit={onSubmit}
-    />
+    <Fragment>
+      <PhoneLoginPresenter
+        countryCode={countryCode}
+        phoneNumber={phoneNumber}
+        onInputChange={onInputChange}
+        onSubmit={onSubmit}
+        loading={loading}
+      />
+    </Fragment>
   );
 };
 
