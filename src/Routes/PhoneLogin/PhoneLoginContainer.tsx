@@ -19,9 +19,10 @@ const PhoneLoginContainer: React.FC<IProps> = () => {
   const [countryCode, setCountryCode] = useState<string>('+82');
   const [phoneNumber, setPhoneNumber] = useState<string>('12345678');
 
-  const [TestMutation, { data, loading, called }] = useMutation<any, IMutationInterface>(
-    PHONE_SIGN_IN,
-  );
+  /**
+   * <any, IMutationInterface> : any > muttion이 리턴할 데이터, IMutationInterface > 요청할 인자
+   */
+  const [mutation, { data, loading, called }] = useMutation<any, IMutationInterface>(PHONE_SIGN_IN);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const {
@@ -39,7 +40,7 @@ const PhoneLoginContainer: React.FC<IProps> = () => {
     console.log(isValid);
 
     if (isValid) {
-      TestMutation({ variables: { phoneNumber: `${countryCode}${phoneNumber}` } });
+      mutation({ variables: { phoneNumber: `${countryCode}${phoneNumber}` } });
       console.log('mutation data :', isValid, `${countryCode}${phoneNumber}`, data, called);
       return;
     } else {
